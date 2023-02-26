@@ -1,0 +1,73 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Space Scripts", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+-- autotap
+local FarmTab = Window:MakeTab({
+	Name = "Autofarm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+FarmTab:AddToggle({
+	Name = "Autotap",
+	Default = false,
+	Callback = function(Value)_G.autotap = true  --change to false for autoclicker to stop
+        while _G.autotap == true do
+            local args = {
+            [1] = "Main"
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tap"):FireServer(unpack(args))
+        
+            wait()
+        end
+-- autobuy
+local BuyTab = Window:MakeTab({
+	Name = "Autobuy",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+BuyTab:AddToggle({
+	Name = "Starter Egg",
+	Default = false,
+	Callback = function(Value)_G.autobuy = true  --change to false for autoclicker to stop
+        while _G.autobuy == true do
+            local args = {
+                [1] = {},
+                [2] = "Starter",
+                [3] = 1
+            }
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HatchEgg"):InvokeServer(unpack(args))
+            
+            wait()
+        end
+		print(Value)
+	end
+    
+-- autorebirth
+local RebirthTab = Window:MakeTab({
+	Name = "AutoRebirth",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+BuyTab:AddToggle({
+	Name = "Autorebirth 1",
+	Default = false,
+	Callback = function(Value)_G.autorebirth = true  --change to false for autoclicker to stop
+        while _G.autorebirth == true do
+            local args = {
+                [1] = 1
+            }
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rebirth"):FireServer(unpack(args))
+            
+            wait()
+        end
+		print(Value)
+	end
+
+end    
+OrionLib:Init()
